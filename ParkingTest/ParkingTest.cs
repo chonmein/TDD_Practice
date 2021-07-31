@@ -40,6 +40,16 @@ namespace ParkingTest
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(120)]
+        public void GetParkingFee_每小時_回覆5元(int minutes)
+        {
+            Parking parking = new Parking();
+            var expected = 10;
+            var actual = parking.GetParkingFee(minutes);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 
     public class Parking
