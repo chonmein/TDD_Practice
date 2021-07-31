@@ -97,7 +97,6 @@ namespace ParkingTest
     public class Parking
     {
         private const int OneDayMinutes = 1440;
-        private const int MaxFeeMinutes = 360;
         private const int OneHourMinutes = 60;
         private const int ThirtyMinutes = 30;
         private const int TenMinutes = 10;
@@ -111,6 +110,14 @@ namespace ParkingTest
         private int _horus = 0;
         private int _oneDayOfRemainMinutes = 0;
         private int _oneHourOfRemainMinutes = 0;
+
+        private int MaxFeeMinutes
+        {
+            get
+            {
+                return OneDayMaxFee / PerHourFee * OneHourMinutes;
+            }
+        }
 
         public int GetParkingFee(int minutes)
         {
