@@ -15,8 +15,8 @@ namespace ParkingTest
             Parking parking = new Parking();
             var expected = 0;
             var actual = parking.GetParkingFee(9);
-            
-            Assert.AreEqual(expected,actual);
+
+            Assert.AreEqual(expected, actual);
         }
 
         [TestCase(11)]
@@ -84,8 +84,10 @@ namespace ParkingTest
                     return 2;
                 return 0;
             }
-            if(minutes % 60 > 30)
+            if (minutes % 60 > 30)
                 return (minutes / 60 + 1) * 5;
+            else if (minutes % 60 > 0)
+                return (minutes / 60) * 5 + 2;
             return (minutes / 60) * 5;
         }
     }
