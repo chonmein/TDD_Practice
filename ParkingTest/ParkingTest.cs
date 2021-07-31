@@ -96,39 +96,60 @@ namespace ParkingTest
 
     public class Parking
     {
+        private const int OneDayMinutes = 1440;
+        private const int MaxFeeMinutes = 360;
+        private const int OneHourMinutes = 60;
+        private const int ThirtyMinutes = 30;
+        private const int TenMinutes = 10;
+
+        private const int OneDayMaxFee = 30;
+        private const int TenMinutesFee = 0;
+        private const int ThirtyMinutesFee = 2;
+        private const int PerHourFee = 5;
+
+        private int _days = 0;
+        private int _horus = 0;
+        private int _oneDayOfRemainMinutes = 0;
+        private int _oneHourOfRemainMinutes = 0;
+
         public int GetParkingFee(int minutes)
         {
-            if (minutes <= 360)
+            _days = minutes / OneDayMinutes;
+            _horus = minutes / OneHourMinutes;
+            _oneDayOfRemainMinutes = minutes % OneDayMinutes;
+            _oneHourOfRemainMinutes = minutes % OneHourMinutes;
+
+            if (minutes <= MaxFeeMinutes)
                 return GetLessDayFee(minutes);
 
-            if (minutes > 1440)
-                return (minutes / 1440) * 30 + GetLessDayFee(minutes % 1440);
+            if (minutes > OneDayMinutes)
+                return _days * OneDayMaxFee + GetLessDayFee(_oneDayOfRemainMinutes);
 
-            return 30;
+            return OneDayMaxFee;
 
         }
 
         private int GetLessDayFee(int minutes)
         {
-            if (minutes <= 60)
+            if (minutes <= OneHourMinutes)
             {
-                if (minutes >= 31 && minutes <= 59)
-                    return 5;
-                if (minutes >= 11 && minutes <= 30)
-                    return 2;
-                return 0;
+                if (minutes > ThirtyMinutes && minutes < OneHourMinutes)
+                    return PerHourFee;
+                if (minutes > TenMinutes && minutes <= ThirtyMinutes)
+                    return ThirtyMinutesFee;
+                return TenMinutesFee;
             }
 
-            if (minutes <= 360)
+            if (minutes <= MaxFeeMinutes)
             {
-                if (minutes % 60 > 30)
-                    return (minutes / 60 + 1) * 5;
-                else if (minutes % 60 > 0)
-                    return (minutes / 60) * 5 + 2;
-                return (minutes / 60) * 5;
+                if (_oneHourOfRemainMinutes > ThirtyMinutes)
+                    return (_horus + 1) * PerHourFee;
+                else if (_oneHourOfRemainMinutes > 0)
+                    return _horus * PerHourFee + ThirtyMinutesFee;
+                return _horus * PerHourFee;
             }
 
-            return 30;
+            return OneDayMaxFee;
         }
     }
 }
