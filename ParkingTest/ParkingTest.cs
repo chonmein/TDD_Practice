@@ -25,7 +25,7 @@ namespace ParkingTest
     {
         public int GetParkingFee(int minutes)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }
