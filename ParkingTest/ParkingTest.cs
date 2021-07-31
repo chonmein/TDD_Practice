@@ -95,11 +95,18 @@ namespace ParkingTest
                     return 2;
                 return 0;
             }
-            if (minutes % 60 > 30)
-                return (minutes / 60 + 1) * 5;
-            else if (minutes % 60 > 0)
-                return (minutes / 60) * 5 + 2;
-            return (minutes / 60) * 5;
+
+            if (minutes <= 360)
+            {
+                if (minutes % 60 > 30)
+                    return (minutes / 60 + 1) * 5;
+                else if (minutes % 60 > 0)
+                    return (minutes / 60) * 5 + 2;
+                return (minutes / 60) * 5;
+            }
+
+            return 30;
+
         }
     }
 }
