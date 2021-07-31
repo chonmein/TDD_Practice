@@ -81,6 +81,17 @@ namespace ParkingTest
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(1451)]
+        [TestCase(1469)]
+        public void GetParkingFee_超過1天且11到29分鐘_給32元(int minutes)
+        {
+            Parking parking = new Parking();
+            var expected = 32;
+            var actual = parking.GetParkingFee(minutes);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 
     public class Parking
