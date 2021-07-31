@@ -46,6 +46,8 @@ namespace ParkingTest
     {
         public int GetParkingFee(int minutes)
         {
+            if (minutes >= 31 && minutes <= 59)
+                return 5;
             if (minutes >= 11 && minutes <= 30)
                 return 2;
             return 0;
