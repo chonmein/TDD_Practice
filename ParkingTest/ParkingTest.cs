@@ -98,6 +98,18 @@ namespace ParkingTest
     {
         public int GetParkingFee(int minutes)
         {
+            if (minutes <= 360)
+                return GetLessDayFee(minutes);
+
+            if (minutes > 1440)
+                return (minutes / 1440) * 30 + GetLessDayFee(minutes % 1440);
+
+            return 30;
+
+        }
+
+        private int GetLessDayFee(int minutes)
+        {
             if (minutes <= 60)
             {
                 if (minutes >= 31 && minutes <= 59)
@@ -117,7 +129,6 @@ namespace ParkingTest
             }
 
             return 30;
-
         }
     }
 }
